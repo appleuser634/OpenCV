@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
 
+#Webカメラの取得 引数に"./video.mp4"などで動画ファイルも渡せます。
 cap = cv2.VideoCapture(0)
 
 #ノイズ処理の強度
 kernel = np.ones((5,5),np.uint8)
-
+#認識結果の描画処理に用いる文字のフォント
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 while True:
@@ -58,13 +59,16 @@ while True:
     draw_text = "X=" + str(cx) + " Y=" + str(cy)
     cv2.putText(frame,draw_text,(cx,cy), font, 2,(255,0,255),2,cv2.LINE_AA)
 
+    #画像の表示
     cv2.imshow("show image!",frame)
     cv2.imshow("show orange_mask!",merge_orange)
 
     #cv2.imshow("show gray!",gray)
 
+    #終了イベントのキー待ち受け qが押されるとbreakします。
     k = cv2.waitKey(1)
     if k == ord("q"):
         break
 
+#表示してたウィンドウを全て閉じます。
 cv2.destroyAllWindows()
